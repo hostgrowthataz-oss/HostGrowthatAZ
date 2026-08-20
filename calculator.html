@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free STR Revenue ROI Calculator | Host Grow Your AZ</title>
+  <meta name="description" content="Estimate how much extra revenue better Airbnb SEO and pricing strategy could add to your listing. Free ROI calculator.">
+  <link rel="canonical" href="https://hostgrowyouraz.com/pages/calculator.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Free STR Revenue ROI Calculator | Host Grow Your AZ">
+  <meta property="og:description" content="See what better listing strategy could be worth. Free interactive ROI calculator for vacation rental owners.">
+  <meta property="og:image" content="https://hostgrowyouraz.com/assets/img/workspace-flatlay.jpg">
+  <meta property="og:url" content="https://hostgrowyouraz.com/pages/calculator.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Free STR Revenue ROI Calculator | Host Grow Your AZ">
+  <meta name="twitter:description" content="See what better listing strategy could be worth for your vacation rental.">
+  <meta name="twitter:image" content="https://hostgrowyouraz.com/assets/img/workspace-flatlay.jpg">
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../base.css">
+  <link rel="stylesheet" href="../style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://hostgrowyouraz.com/"},
+      {"@type": "ListItem", "position": 2, "name": "ROI Calculator", "item": "https://hostgrowyouraz.com/pages/calculator.html"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "STR Revenue ROI Calculator",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Any (browser-based)",
+    "url": "https://hostgrowyouraz.com/pages/calculator.html",
+    "description": "Free interactive calculator estimating additional annual revenue from listing optimization, pricing, and conversion strategy.",
+    "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+    "provider": {"@type": "Organization", "name": "Host Grow Your AZ"}
+  }
+  </script>
+  <script src="../analytics.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav-inner">
+      <a class="brand" href="../index.html" aria-label="Host Grow Your AZ — home">
+        <span class="brand-logo-chip"><img class="brand-logo-img" src="../assets/brand/logo-mark.png" alt="Host Grow Your AZ logo" width="717" height="601"></span>
+        <span class="brand-word">Host <strong>GROW</strong> your <strong style="color:var(--color-gold)">AZ</strong><span>Listing Optimization &amp; Revenue Strategy</span></span>
+      </a>
+      <nav aria-label="Primary">
+        <ul class="nav-links" data-nav-links>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../pages/about.html">About</a></li>
+            <li><a href="../pages/services.html">Services</a></li>
+            <li><a href="../pages/pricing.html">Pricing</a></li>
+            <li><a href="../pages/calculator.html" aria-current="page">Calculator</a></li>
+            <li><a href="../pages/faq.html">FAQ</a></li>
+            <li><a href="../pages/resources.html">Resources</a></li>
+            <li><a href="../pages/contact.html">Contact</a></li>
+            <li class="nav-links-cta-mobile"><a class="btn btn-primary" href="contact.html?package=strategy-session">Book My $99 Audit</a></li>
+        </ul>
+      </nav>
+      <div class="nav-cta">
+        <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode"></button>
+        <a class="btn btn-primary" href="contact.html?package=strategy-session">Book My $99 Audit</a>
+        <button class="nav-toggle" data-nav-toggle aria-label="Open menu" aria-expanded="false">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow">ROI Calculator</p>
+        <h1>See what better strategy is worth &mdash; in real dollars.</h1>
+        <p class="lede">Enter your numbers below. Even a 5% improvement can create thousands in additional annual revenue &mdash; this tool shows you the range and the levers that get you there.</p>
+      </div>
+    </section>
+
+    <section class="tight">
+      <div class="container container--narrow">
+        <div class="calc-panel">
+          <form id="roi-form" novalidate>
+            <div class="calc-grid">
+              <div class="field">
+                <label for="adr">Current Average Daily Rate (ADR)</label>
+                <div class="calc-slider-row">
+                  <span aria-hidden="true">$</span>
+                  <input type="range" id="adr" name="adr" min="50" max="1000" step="5" value="220">
+                  <span class="calc-slider-value" id="adr-value">$220</span>
+                </div>
+              </div>
+              <div class="field">
+                <label for="occupancy">Current Occupancy Rate</label>
+                <div class="calc-slider-row">
+                  <input type="range" id="occupancy" name="occupancy" min="10" max="100" step="1" value="60">
+                  <span class="calc-slider-value" id="occupancy-value">60%</span>
+                </div>
+              </div>
+              <div class="field">
+                <label for="properties">Number of Properties</label>
+                <div class="calc-slider-row">
+                  <input type="range" id="properties" name="properties" min="1" max="25" step="1" value="1">
+                  <span class="calc-slider-value" id="properties-value">1</span>
+                </div>
+              </div>
+              <div class="field">
+                <label for="annual-revenue">Current Annual Revenue <span class="hint">(optional &mdash; auto-calculated if blank)</span></label>
+                <input type="text" inputmode="numeric" id="annual-revenue" name="annual-revenue" placeholder="Auto-calculated from inputs above">
+              </div>
+            </div>
+          </form>
+
+          <div class="calc-result" aria-live="polite">
+            <p class="eyebrow" style="color:var(--color-gold); justify-content:center">Estimated Current Annual Revenue</p>
+            <p class="headline-figure">$<span class="count-num" id="current-revenue">0</span></p>
+            <p id="headline-uplift">Even a 5% improvement could mean about <strong id="uplift-5" style="color:#fff">$0</strong> more per year.</p>
+          </div>
+
+          <div class="lever-grid" id="lever-preview">
+            <div class="lever-card">
+              <p class="amount">Conservative</p>
+              <h4>+5&ndash;10% Total Uplift</h4>
+              <p>Small, low-risk improvements most listings are leaving on the table today.</p>
+            </div>
+            <div class="lever-card">
+              <p class="amount">Strong</p>
+              <h4>+15&ndash;25% Total Uplift</h4>
+              <p>Full optimization across ranking, pricing, and conversion.</p>
+            </div>
+            <div class="lever-card">
+              <p class="amount">&nbsp;</p>
+              <h4>Unlock the full lever-by-lever breakdown below</h4>
+              <p>See exactly where the opportunity comes from.</p>
+            </div>
+          </div>
+
+          <!-- Leads are forwarded live to hostgrowthataz@gmail.com via FormSubmit (see calculator.js). -->
+          <div class="gate-overlay" id="gate-overlay">
+            <h3>Unlock Your Full Revenue Breakdown</h3>
+            <p style="color:var(--color-text-muted); margin-top:var(--space-2)">Enter your name and email to see the lever-by-lever opportunity, broken down by ranking, conversion, pricing, stay length, and upsells.</p>
+            <form class="gate-form" id="gate-form">
+              <input type="text" id="gate-name" placeholder="First name" required aria-label="First name">
+              <input type="email" id="gate-email" placeholder="Email address" required aria-label="Email address">
+              <button type="submit" class="btn btn-primary">Reveal My Breakdown</button>
+            </form>
+            <p class="hint" style="margin-top:var(--space-4)">We'll never share your email. Unsubscribe anytime.</p>
+          </div>
+
+          <div class="lever-grid" id="lever-full" style="display:none">
+            <div class="lever-card">
+              <p class="amount" id="lever-ranking">$0</p>
+              <h4>Better Rankings &amp; Visibility</h4>
+              <p>Listing SEO improvements that move you toward page one for your market.</p>
+            </div>
+            <div class="lever-card">
+              <p class="amount" id="lever-conversion">$0</p>
+              <h4>Higher Conversion Rate</h4>
+              <p>Photos, description, and pricing psychology that turn views into bookings.</p>
+            </div>
+            <div class="lever-card">
+              <p class="amount" id="lever-pricing">$0</p>
+              <h4>Smarter Pricing</h4>
+              <p>Dynamic pricing that responds to demand instead of guessing at a flat rate.</p>
+            </div>
+            <div class="lever-card">
+              <p class="amount" id="lever-staylength">$0</p>
+              <h4>Longer Average Stays</h4>
+              <p>Minimum-stay and discount strategy that reduces turnover costs and gaps.</p>
+            </div>
+            <div class="lever-card">
+              <p class="amount" id="lever-upsells">$0</p>
+              <h4>Upsells &amp; Add-ons</h4>
+              <p>Early check-in, late checkout, and experience add-ons that add margin per stay.</p>
+            </div>
+            <div class="lever-card" style="background:var(--color-primary-highlight)">
+              <p class="amount" id="lever-total" style="color:var(--color-primary)">$0</p>
+              <h4>Total Strong-Case Opportunity</h4>
+              <p>The combined annual upside if every lever performs at the strong end of the range.</p>
+            </div>
+          </div>
+
+          <div style="text-align:center; margin-top:var(--space-10)">
+            <a class="btn btn-primary" href="contact.html?package=strategy-session">Turn This Into a Plan &mdash; Book My $99 Audit</a>
+          </div>
+        </div>
+
+        <p class="hint" style="text-align:center; margin-top:var(--space-6)">This calculator provides estimates for illustration only and is not a guarantee of results. Actual performance depends on market, property, and execution.</p>
+      </div>
+    </section>
+
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a class="brand" href="../index.html" aria-label="Host Grow Your AZ — home">
+            <span class="brand-logo-chip"><img class="brand-logo-img" src="../assets/brand/logo-mark.png" alt="Host Grow Your AZ logo" width="717" height="601"></span>
+            <span class="brand-word">Host <strong>GROW</strong> your AZ</span>
+          </a>
+          <p class="footer-tagline">"Optimization That Makes Owners Money." Based in Arizona. Helping hosts everywhere.</p>
+          <p class="footer-tagline">Email: <a href="mailto:hostgrowthataz@gmail.com">hostgrowthataz@gmail.com</a></p>
+<div class="footer-social">
+            <a href="https://www.instagram.com/hostgrowthataz/" target="_blank" rel="noopener noreferrer" aria-label="Host Grow Your AZ on Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+            <a href="https://www.facebook.com/profile.php?id=61589692348945" target="_blank" rel="noopener noreferrer" aria-label="Host Grow Your AZ on Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="M14 9h3V6h-3c-2 0-3.5 1.5-3.5 3.5V12H8v3h2.5v6h3v-6H16l.5-3h-3v-1.8c0-.7.3-1.2 1.5-1.2Z"/></svg></a>
+            <a href="https://www.linkedin.com/in/andreanava" target="_blank" rel="noopener noreferrer" aria-label="Andrea Nava on LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 11v5M8 8v.01M12 16v-3.2c0-1.5 1-2.3 2.2-2.3s2 .8 2 2.3V16"/></svg></a>
+          </div>
+        </div>
+        <div>
+          <h4>Explore</h4>
+          <ul class="footer-links">
+            <li><a href="../pages/about.html">About Andrea</a></li>
+            <li><a href="../pages/services.html">Services</a></li>
+            <li><a href="../pages/pricing.html">Pricing</a></li>
+            <li><a href="../pages/calculator.html">ROI Calculator</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Resources</h4>
+          <ul class="footer-links">
+            <li><a href="../pages/faq.html">FAQ</a></li>
+            <li><a href="../pages/resources.html">Resource Library</a></li>
+            <li><a href="../pages/partners.html">Partners &amp; Tools</a></li>
+            <li><a href="../pages/contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="../pages/legal/privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="../pages/legal/terms.html">Terms</a></li>
+            <li><a href="../pages/legal/sales-refund-policy.html">Sales &amp; Refund Policy</a></li>
+            <li><a href="../pages/legal/affiliate-disclosure.html">Affiliate Disclosure</a></li>
+            <li><a href="../pages/legal/accessibility-statement.html">Accessibility Statement</a></li>
+            <li><a href="../pages/legal/cookie-policy.html">Cookie Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Host Grow Your AZ. All rights reserved.</p>
+        <p>Based in Arizona. Helping hosts everywhere.</p>
+        <p style="font-size:var(--text-xs); max-width:720px; margin-top:var(--space-2)">HostGrowYourAZ is an independent vacation rental consulting company and is not affiliated with, endorsed by, sponsored by, or acting on behalf of Airbnb, Booking.com, Vrbo, Expedia Group, or any other travel platform. All trademarks belong to their respective owners.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../app.js" defer></script>
+  <script src="../calculator.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+# hostgrowyouraz.com
+# Everything on this site is open to search engines and AI answer engines.
+
+User-agent: *
+Allow: /
+
+# Post-purchase confirmation page. It carries a noindex tag and holds no
+# content of value in search results.
+Disallow: /pages/order-confirmed.html
+
+Sitemap: https://hostgrowyouraz.com/sitemap.xml
