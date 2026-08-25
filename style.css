@@ -2655,3 +2655,20 @@ li:has(> svg) {
 .dark-band .accordion-content p {
   color: #d8cdb6;
 }
+
+/* ---------------------------------------------------------------------------
+   Header brand: never compress.
+
+   `.brand` combines `flex-shrink: 1`, `min-width: 0` and `overflow: hidden`.
+   That trio means the wordmark is silently CLIPPED rather than wrapped or
+   visibly overflowed whenever the header runs short of room. It went unnoticed
+   until the nav gained the "Arizona Rules" link and the "Free 15-Min
+   Diagnostic" CTA, which together pushed the brand from its natural 295px down
+   to ~133px — rendering the logo as "Host GRO" with the tagline cut in half.
+
+   Pinning flex-shrink to 0 makes the nav absorb the pressure instead, and the
+   nav collapses to the mobile menu below 1024px where space actually runs out.
+--------------------------------------------------------------------------- */
+.brand {
+  flex-shrink: 0;
+}

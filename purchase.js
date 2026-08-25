@@ -15,26 +15,28 @@
  * Stripe substitutes {CHECKOUT_SESSION_ID} automatically, which gives each
  * purchase a stable transaction_id and stops GA4 double-counting on refresh.
  *
- * De-duplication: the transaction id is recorded in sessionStorage, so a reload
- * or a back-navigation does not fire a second purchase for the same order.
+ * De-duplication: once the event is sent, the tracking parameters are stripped
+ * from the address bar with history.replaceState. A reload or back-navigation
+ * then lands on a clean URL with nothing to re-fire, so GA4 cannot double-count
+ * the same order. This needs no client-side storage at all, which matters
+ * because storage access throws outright in Safari private mode.
  */
 (function () {
   'use strict';
 
-  var KEY = 'hgya_purchases';
+  var fired = false;
 
-  function seen(id) {
+  /* Remove the purchase parameters so a refresh cannot replay the event. */
+  function clearParams() {
     try {
-      var raw = window.sessionStorage.getItem(KEY);
-      var list = raw ? JSON.parse(raw) : [];
-      if (list.indexOf(id) !== -1) { return true; }
-      list.push(id);
-      window.sessionStorage.setItem(KEY, JSON.stringify(list.slice(-25)));
-      return false;
+      var u = new URL(window.location.href);
+      ['item', 'product', 'value', 'amount', 'currency', 'id', 'session_id']
+        .forEach(function (k) { u.searchParams.delete(k); });
+      var clean = u.pathname + (u.searchParams.toString() ? '?' + u.searchParams : '') + u.hash;
+      window.history.replaceState({}, document.title, clean);
     } catch (e) {
-      /* Private mode or storage disabled — better to risk a duplicate than to
-         lose the conversion entirely. */
-      return false;
+      /* replaceState is unavailable in some embedded webviews. The event has
+         already been sent at this point, so there is nothing to recover. */
     }
   }
 
@@ -42,6 +44,12 @@
     if (!window.hgTrack) { return; }
 
     var q = new URLSearchParams(window.location.search);
+
+    /* No purchase parameters means a direct visit to the confirmation page,
+       not a completed checkout. Do not invent a conversion. */
+    if (!q.get('item') && !q.get('product') && !q.get('session_id') && !q.get('id')) {
+      return;
+    }
 
     var item = q.get('item') || q.get('product') || 'Host Grow Your AZ service';
     var value = parseFloat(q.get('value') || q.get('amount') || '0');
@@ -52,7 +60,8 @@
     var txn = q.get('id') || q.get('session_id') ||
       ('order-' + new Date().toISOString().slice(0, 10) + '-' + item);
 
-    if (seen(txn)) { return; }
+    if (fired) { return; }
+    fired = true;
 
     window.hgTrack('purchase', {
       transaction_id: txn,
@@ -64,5 +73,7 @@
         quantity: 1,
       }],
     });
+
+    clearParams();
   });
 })();
