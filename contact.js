@@ -1,12 +1,13 @@
-/* Host Grow Your AZ — Contact form validation, live email delivery via FormSubmit, + success state */
+/* Host Grow Your AZ — Contact form validation, server-side delivery, success state.
+ *
+ * Submissions now go through /api/lead (see lead.js and api/lead.js), which emails
+ * Andrea AND sends the visitor an acknowledgement. Previously this posted straight
+ * to FormSubmit and the visitor received nothing at all, so a real inquiry looked
+ * identical to a dropped one. lead.js still falls back to the FormSubmit relay
+ * automatically if the API route is unavailable, so nothing is ever lost.
+ */
 (function () {
   'use strict';
-
-  /* Every submission is forwarded to this inbox via FormSubmit (formsubmit.co) —
-     a free, no-signup form-relay service. The FIRST submission from the live site
-     triggers a one-time confirmation email to this address that must be clicked
-     to activate delivery; every submission after that lands directly in the inbox. */
-  var FORM_ENDPOINT = 'https://formsubmit.co/ajax/hostgrowthataz@gmail.com';
 
   document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('contact-form');
@@ -26,6 +27,8 @@
         'vip-day': 'VIP Day',
         'enterprise': 'Enterprise & Investment Consulting',
         'add-on': 'Add-On Service',
+        'free-diagnostic': 'Free 15-Minute Listing Visibility Diagnostic',
+        'city-request': 'Request an Arizona city compliance guide',
       };
       const label = labelMap[pkg];
       if (label && challenge) {
@@ -90,16 +93,21 @@
         }, 200);
       }
 
-      const formData = new FormData(form);
-      formData.append('_subject', 'New inquiry from Host Grow Your AZ website');
+      var pkgField = form.querySelector('[name="package"]');
+      var listingField = form.querySelector('[name="listing_url"]');
+      var hpField = form.querySelector('[name="company_website"]');
 
-      fetch(FORM_ENDPOINT, {
-        method: 'POST',
-        headers: { Accept: 'application/json' },
-        body: formData,
-      })
-        .then(function (response) {
-          if (!response.ok) throw new Error('FormSubmit request failed');
+      window
+        .hgSubmitLead({
+          intent: 'contact',
+          first_name: name.value.trim(),
+          email: email.value.trim(),
+          message: challenge.value.trim(),
+          package: (pkgField && pkgField.value) || pkg || '',
+          listing_url: (listingField && listingField.value) || '',
+          company_website: (hpField && hpField.value) || '',
+        })
+        .then(function () {
           showSuccess();
         })
         .catch(function () {

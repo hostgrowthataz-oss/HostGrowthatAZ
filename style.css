@@ -512,6 +512,9 @@ main {
   color: var(--color-text-muted);
   padding: var(--space-2) 0;
   position: relative;
+  /* Multi-word labels such as "Arizona Rules" were breaking onto a second line
+     and making the sticky header taller than the rest of its row. */
+  white-space: nowrap;
 }
 .nav-links a:hover,
 .nav-links a[aria-current='page'] {
@@ -2179,14 +2182,29 @@ li:has(> svg) {
   gap: var(--space-4);
 }
 .coming-soon-item {
+  /* Stacked, not side-by-side: these cards hold a city name plus a sentence
+     about what the guide will cover, and a row layout squeezed the sentence
+     into a narrow ragged column beside the name. */
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-3);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
   background: var(--color-surface);
   border: 1px dashed var(--color-divider);
   border-radius: var(--radius-md);
   padding: var(--space-5) var(--space-6);
+}
+.coming-soon-item h4 {
+  margin: 0;
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-text);
+}
+.coming-soon-item p {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.5;
 }
 .coming-soon-item span.title {
   font-size: var(--text-sm);
@@ -2464,4 +2482,176 @@ li:has(> svg) {
   }
   .cookie-consent__actions { width: 100%; }
   .cookie-consent__actions .btn { flex: 1 1 auto; }
+}
+
+/* ---------------------------------------------------------------------------
+   Booking embed (Google Calendar appointment schedule) + Arizona guide pages
+   Added with the free-diagnostic funnel and the Arizona compliance hub.
+   --------------------------------------------------------------------------- */
+
+.lede {
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+  max-width: 62ch;
+}
+
+.booking-embed {
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg, 14px);
+  padding: var(--space-3);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.04);
+}
+.booking-embed iframe {
+  display: block;
+  width: 100%;
+  min-height: 640px;
+  border-radius: var(--radius-md, 10px);
+  background: var(--color-surface);
+}
+.booking-embed .breadcrumb-note {
+  margin-top: var(--space-3);
+  text-align: center;
+}
+@media (max-width: 640px) {
+  .booking-embed { padding: var(--space-2); }
+  .booking-embed iframe { min-height: 720px; }
+}
+
+/* ---- Long-form guide typography (Arizona pages) ---- */
+.guide-body {
+  max-width: 68ch;
+  margin-inline: auto;
+}
+.guide-body > * + * { margin-top: var(--space-5); }
+.guide-body h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  margin-top: var(--space-12);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-divider);
+}
+.guide-body h3 {
+  font-size: var(--text-lg);
+  margin-top: var(--space-8);
+}
+.guide-body ul,
+.guide-body ol {
+  padding-left: var(--space-6);
+}
+.guide-body li + li { margin-top: var(--space-2); }
+.guide-body a {
+  color: var(--color-primary);
+  text-underline-offset: 3px;
+}
+
+.guide-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-top: var(--space-4);
+}
+
+.callout {
+  border-left: 3px solid var(--color-primary);
+  background: var(--color-surface-offset);
+  padding: var(--space-5) var(--space-6);
+  border-radius: 0 var(--radius-md, 10px) var(--radius-md, 10px) 0;
+}
+.callout > * + * { margin-top: var(--space-3); }
+.callout h3 {
+  margin-top: 0;
+  font-size: var(--text-base);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-primary);
+}
+
+.fact-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+.fact-table th,
+.fact-table td {
+  text-align: left;
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-divider);
+  vertical-align: top;
+}
+.fact-table th {
+  font-weight: 600;
+  color: var(--color-text);
+  background: var(--color-surface-offset);
+}
+.fact-table-wrap { overflow-x: auto; }
+
+/* ---- Waitlist blocks (replaces preorder checkout) ---- */
+.waitlist-form {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+.waitlist-form .field { margin: 0; }
+.waitlist-note {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   Booking request form (site/booking.js fallback when no calendar link is set)
+   ========================================================================== */
+
+/* A plain stacked form. .field already styles the label/input/textarea trio,
+   so this only needs to own the vertical rhythm and the full-width submit. */
+.booking-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  max-width: 34rem;
+  margin-top: var(--space-6);
+}
+.booking-form > .breadcrumb-note {
+  margin: 0;
+}
+.booking-form button[type='submit'] {
+  align-self: stretch;
+}
+.booking-form .resource-confirm {
+  margin: 0;
+}
+
+/* The `hidden` attribute is only `display: none` from the UA stylesheet, which
+   an author class selector of equal specificity beats on source order. The
+   honeypot field is a `.field` with `hidden`, and `.field { display: flex }`
+   was winning — so the "Leave blank" spam trap rendered in plain sight on the
+   booking form. Make the attribute authoritative wherever it appears. */
+[hidden] {
+  display: none !important;
+}
+
+/* ==========================================================================
+   Accordions inside a dark band
+   ========================================================================== */
+
+/* .dark-band only recolours p and h1-h3, so `summary` kept
+   `color: var(--color-text)` — near-black text on the near-black band, which
+   made every question on the booking page's FAQ invisible. */
+.dark-band .accordion-item {
+  border-bottom-color: oklch(0.9 0.02 80 / 0.18);
+}
+.dark-band .accordion-item summary {
+  color: #f8f4ed;
+}
+.dark-band .accordion-item summary .plus {
+  border-color: oklch(0.9 0.02 80 / 0.35);
+}
+.dark-band .accordion-item summary .plus::before,
+.dark-band .accordion-item summary .plus::after {
+  background: var(--color-gold);
+}
+.dark-band .accordion-content p {
+  color: #d8cdb6;
 }

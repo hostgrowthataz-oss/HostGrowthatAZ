@@ -100,10 +100,11 @@
     /* Initial calculation with animated count-up */
     recalc(true);
 
-    /* Email gate reveal — also forwards the lead to hostgrowthataz@gmail.com via FormSubmit
-       (same free, no-signup relay used on the Contact page). The first live submission
-       triggers a one-time confirmation email that must be clicked to activate delivery. */
-    var CALC_GATE_ENDPOINT = 'https://formsubmit.co/ajax/hostgrowthataz@gmail.com';
+    /* Email gate reveal. The lead now goes through /api/lead, which emails Andrea
+       AND sends the visitor their own copy with a link to book a free diagnostic.
+       Previously this posted to FormSubmit with a silent .catch(), so the visitor
+       handed over an email address and received absolutely nothing in return —
+       which is the fastest way to make a gate feel like a bait-and-switch. */
 
     function revealFullResults() {
       gateOverlay.style.transition = 'opacity 300ms ease-out, transform 300ms ease-out';
@@ -130,31 +131,32 @@
           return;
         }
 
-        const fd = new FormData();
-        fd.append('name', name);
-        fd.append('email', email);
-        fd.append('estimated_annual_revenue', '$' + fmt(lastRevenue));
-        fd.append('_subject', 'New ROI Calculator lead from Host Grow Your AZ website');
-
         /* Analytics: unlocking the full results is a qualified lead.
            Only the revenue estimate is reported — never the name or email. */
         if (window.hgTrack) {
           window.hgTrack('generate_lead', {
             form_name: 'roi_calculator',
+            lead_source: 'roi_calculator',
             currency: 'USD',
             value: lastRevenue || 0
           });
         }
 
-        fetch(CALC_GATE_ENDPOINT, {
-          method: 'POST',
-          headers: { Accept: 'application/json' },
-          body: fd,
-        }).catch(function () {
-          /* Silent fallback — delivery may fail (e.g. ad blockers), but the visitor's
-             experience (seeing their full results) should never be blocked by that. */
-        });
+        if (window.hgSubmitLead) {
+          window.hgSubmitLead({
+            intent: 'calculator',
+            first_name: name,
+            email: email,
+            message: 'Estimated annual revenue opportunity: $' + fmt(lastRevenue),
+            product: 'ROI Calculator unlock',
+          }).catch(function () {
+            /* The visitor has already earned their results; a delivery failure
+               must never hold those back. Andrea's copy is the fallback path. */
+          });
+        }
 
+        /* Reveal immediately — never make someone wait on a network round-trip
+           for something they have already paid for with their email address. */
         revealFullResults();
       });
     }
