@@ -16,7 +16,7 @@
 (function () {
   'use strict';
 
-  var FREE_GUIDE_PDF = '../assets/downloads/10-seo-mistakes-costing-str-hosts-bookings.pdf';
+  var FREE_GUIDE_PDF = '/assets/downloads/10-seo-mistakes-costing-str-hosts-bookings.pdf';
   var FREE_GUIDE_NAME = '10 SEO Mistakes Costing STR Hosts Bookings (Free Guide)';
   var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 

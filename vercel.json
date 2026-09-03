@@ -1,0 +1,6 @@
+{
+  "redirects": [
+    { "source": "/pages/resources.html", "destination": "/", "permanent": false },
+    { "source": "/pages/resources", "destination": "/", "permanent": false }
+  ]
+}
