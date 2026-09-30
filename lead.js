@@ -15,6 +15,19 @@
 
   var cfg = window.HGYA_CONFIG || {};
 
+  function request(url, options) {
+    var controller = new AbortController();
+    options.signal = controller.signal;
+    var timer = setTimeout(function () { controller.abort(); }, 15000);
+    return fetch(url, options).then(function (res) {
+      clearTimeout(timer);
+      return res;
+    }, function (err) {
+      clearTimeout(timer);
+      throw err;
+    });
+  }
+
   function checkedJson(res, fallback) {
     return res.json().catch(function () {
       throw new Error('The email service returned an invalid response.');
@@ -34,7 +47,7 @@
   }
 
   function postJson(url, payload) {
-    return fetch(url, {
+    return request(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify(payload),
@@ -51,7 +64,7 @@
     });
     fd.append('_subject', 'Host Grow Your AZ — ' + (payload.intent || 'lead'));
     fd.append('_replyto', payload.email || '');
-    return fetch(cfg.FALLBACK_ENDPOINT, {
+    return request(cfg.FALLBACK_ENDPOINT, {
       method: 'POST',
       headers: { Accept: 'application/json' },
       body: fd,
@@ -75,9 +88,14 @@
           throw new Error(j.error || 'Submission failed');
         });
       },
-      function () {
+      function (err) {
         /* Only a primary network failure triggers this branch. Never retry a
            failed relay or bypass a validation rejection. */
+        if (err.name === 'AbortError') {
+          /* The primary may have accepted the request before timing out.
+             Do not automatically send the same lead through a second service. */
+          throw new Error('Your submission was not confirmed. Please email hostgrowthataz@gmail.com.');
+        }
         return postFallback(payload);
       }
     );
