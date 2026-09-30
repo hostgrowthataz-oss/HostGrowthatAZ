@@ -133,13 +133,26 @@
 
         /* Analytics: unlocking the full results is a qualified lead.
            Only the revenue estimate is reported — never the name or email. */
-        if (window.hgTrack) {
-          window.hgTrack('generate_lead', {
+        function trackAcceptedLead() {
+          if (window.hgTrack) { window.hgTrack('generate_lead', {
             form_name: 'roi_calculator',
             lead_source: 'roi_calculator',
             currency: 'USD',
             value: lastRevenue || 0
-          });
+          }); }
+        }
+
+        function showDeliveryError() {
+          var note = document.getElementById('calculator-delivery-error');
+          if (!note) {
+            note = document.createElement('p');
+            note.id = 'calculator-delivery-error';
+            note.className = 'fine-print';
+            note.setAttribute('role', 'alert');
+            leverFull.parentElement.appendChild(note);
+          }
+          note.innerHTML = 'Your breakdown is available, but your email submission was not confirmed. ' +
+            'Please contact <a href="mailto:hostgrowthataz@gmail.com">hostgrowthataz@gmail.com</a> for a follow-up.';
         }
 
         if (window.hgSubmitLead) {
@@ -149,10 +162,9 @@
             email: email,
             message: 'Estimated annual revenue opportunity: $' + fmt(lastRevenue),
             product: 'ROI Calculator unlock',
-          }).catch(function () {
-            /* The visitor has already earned their results; a delivery failure
-               must never hold those back. Andrea's copy is the fallback path. */
-          });
+          }).then(trackAcceptedLead).catch(showDeliveryError);
+        } else {
+          showDeliveryError();
         }
 
         /* Reveal immediately — never make someone wait on a network round-trip

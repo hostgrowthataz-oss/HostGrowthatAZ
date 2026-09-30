@@ -4,7 +4,7 @@
  * Andrea AND sends the visitor an acknowledgement. Previously this posted straight
  * to FormSubmit and the visitor received nothing at all, so a real inquiry looked
  * identical to a dropped one. lead.js still falls back to the FormSubmit relay
- * automatically if the API route is unavailable, so nothing is ever lost.
+ * automatically if the API route is unavailable and verifies its response.
  */
 (function () {
   'use strict';
@@ -67,6 +67,8 @@
       }
 
       const submitBtn = form.querySelector('button[type="submit"]');
+      var errorNote = document.getElementById('contact-delivery-error');
+      if (errorNote) { errorNote.hidden = true; }
       const originalBtnText = submitBtn ? submitBtn.textContent : '';
       if (submitBtn) {
         submitBtn.disabled = true;
@@ -94,8 +96,12 @@
       }
 
       var pkgField = form.querySelector('[name="package"]');
-      var listingField = form.querySelector('[name="listing_url"]');
+      var listingField = document.getElementById('property-link');
       var hpField = form.querySelector('[name="company_website"]');
+      function fieldValue(id) {
+        var field = document.getElementById(id);
+        return field ? field.value.trim() : '';
+      }
 
       window
         .hgSubmitLead({
@@ -105,23 +111,39 @@
           message: challenge.value.trim(),
           package: (pkgField && pkgField.value) || pkg || '',
           listing_url: (listingField && listingField.value) || '',
+          phone: fieldValue('phone'),
+          platform: fieldValue('platform'),
+          property_address: fieldValue('property-address'),
+          listings: fieldValue('listings'),
+          budget: fieldValue('budget'),
+          timeline: fieldValue('timeline'),
           company_website: (hpField && hpField.value) || '',
         })
         .then(function () {
           showSuccess();
         })
         .catch(function () {
-          /* Network/service failure: fall back so the visitor isn't stuck,
-             but surface the working mailto option instead of a false success. */
           if (submitBtn) {
             submitBtn.disabled = false;
             submitBtn.textContent = originalBtnText;
           }
-          window.location.href =
+          if (!errorNote) {
+            errorNote = document.createElement('p');
+            errorNote.id = 'contact-delivery-error';
+            errorNote.className = 'fine-print';
+            errorNote.setAttribute('role', 'alert');
+            form.appendChild(errorNote);
+          }
+          errorNote.hidden = false;
+          errorNote.textContent = 'Your message was not confirmed. Your details are still here. Please try again or ';
+          var emailLink = document.createElement('a');
+          emailLink.textContent = 'email Andrea directly';
+          emailLink.href =
             'mailto:hostgrowthataz@gmail.com?subject=Inquiry%20from%20website&body=' +
             encodeURIComponent(
               'Name: ' + (name.value || '') + '\nEmail: ' + (email.value || '') + '\nChallenge: ' + (challenge.value || '')
             );
+          errorNote.appendChild(emailLink);
         });
     });
 

@@ -157,10 +157,14 @@
               if (confirmEl) {
                 confirmEl.style.display = 'block';
                 if (!r.delivered) {
+                  var heading = confirmEl.querySelector('h3');
+                  var summary = confirmEl.querySelector('p');
+                  if (heading) { heading.textContent = 'Your guide is ready'; }
+                  if (summary) { summary.textContent = 'Your download has started. An email copy was not confirmed.'; }
                   var p = document.createElement('p');
                   p.className = 'fine-print';
                   p.innerHTML =
-                    'Your download has started. If the email does not arrive, ' +
+                    'If the download did not start, ' +
                     '<a href="' + FREE_GUIDE_PDF + '" download>download the guide directly</a>.';
                   confirmEl.appendChild(p);
                 }
