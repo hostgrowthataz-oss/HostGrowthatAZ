@@ -225,7 +225,10 @@ export default async function handler(req, res) {
 
   const from = process.env.LEAD_FROM || 'Andrea Nava <andrea@hostgrowyouraz.com>';
   const to = process.env.LEAD_TO || 'hostgrowthataz@gmail.com';
-  const bookingUrl = process.env.BOOKING_URL || '';
+  /* Keep emails pointed at the site's booking page so the public calendar URL
+     has one source of truth in config.js. An explicit environment override is
+     still supported. */
+  const bookingUrl = process.env.BOOKING_URL || SITE + '/pages/book.html#book';
 
   const visitor = visitorEmail(intent, data, bookingUrl);
   const notify = notifyEmail(intent, data, meta);

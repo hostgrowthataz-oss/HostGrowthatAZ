@@ -20,8 +20,8 @@
   'use strict';
 
   window.HGYA_CONFIG = {
-    /* Paste the Google Calendar booking link between the quotes. */
-    BOOKING_URL: '',
+    /* Public Google Calendar schedule; use the full URL for a reliable embed. */
+    BOOKING_URL: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ3JjKLNuR4w4CCQxXsCkD7Uo3565Xj5FFZEjI_HOeQzZoTtVMOcQfqeJYOvqtGw8hwato2oR5eW',
 
     /* Google embeds an appointment schedule when ?gv=true is appended. */
     bookingEmbedUrl: function () {

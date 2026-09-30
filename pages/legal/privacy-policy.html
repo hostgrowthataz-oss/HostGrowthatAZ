@@ -61,7 +61,7 @@
     <section class="tight">
       <div class="container container--prose legal-content">
         
-          <p class="updated">Last updated: July 30, 2026</p>
+          <p class="updated">Last updated: September 29, 2026</p>
           <p>Host Grow Your AZ ("we," "us," or "our") respects your privacy. This Privacy Policy explains what information we collect through this website, how we use it, and what control you have over it.</p>
 
           <h2>Information You Give Us</h2>
@@ -89,13 +89,16 @@
           <h2>Payment Information</h2>
           <p>If you purchase a digital guide or paid service through this site, your payment is processed by Stripe, a third-party payment processor. Stripe collects and processes your card and billing details directly under its own privacy policy and security standards &mdash; we do not receive or store your full card number. We may receive limited transaction details from Stripe (such as your name, email, and purchase amount) to confirm your order, deliver your purchase, and provide support.</p>
           <h2>Data Storage</h2>
-          <p>Form submissions on this site (contact requests, ROI calculator sign-ups, and resource guide pre-orders) are delivered directly to our email inbox via FormSubmit, a third-party form-relay service, and are not stored in a separate backend database or CRM. If we begin using a dedicated email or CRM platform in the future, this policy will be updated accordingly.</p>
+          <p>Form submissions on this site (contact requests, ROI calculator sign-ups, resource downloads, and guide waitlists) are processed by our Vercel-hosted form endpoint and delivered through Resend to our email inbox. FormSubmit is a backup delivery service if the primary service is unavailable. The form endpoint does not maintain a separate lead database or CRM.</p>
+          <p>Our booking page embeds Google Calendar appointment scheduling. Loading the calendar connects your browser to Google. When you book, Google processes the contact details and appointment information you submit to manage scheduling, calendar events, and confirmations. Google's <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a> applies to its service.</p>
           <h2>Service Providers</h2>
           <p>We rely on a small number of third parties to operate this site. Each processes data only as needed to provide its service:</p>
           <ul>
             <li><strong>Google Analytics</strong> &mdash; website analytics, only with your consent. <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">How Google uses this data</a>.</li>
             <li><strong>Stripe</strong> &mdash; payment processing. <a href="https://stripe.com/privacy" target="_blank" rel="noopener noreferrer">Stripe privacy policy</a>.</li>
-            <li><strong>FormSubmit</strong> &mdash; relays form submissions to our email inbox.</li>
+            <li><strong>Resend</strong>: delivers form notifications and requested confirmation or resource emails.</li>
+            <li><strong>FormSubmit</strong>: provides backup form delivery to our email inbox.</li>
+            <li><strong>Google Calendar</strong>: provides appointment scheduling and booking confirmations.</li>
             <li><strong>Vercel</strong> &mdash; website hosting and delivery.</li>
             <li><strong>Google Fonts</strong> &mdash; serves the typefaces used on this site and receives your IP address as part of that request.</li>
           </ul>
